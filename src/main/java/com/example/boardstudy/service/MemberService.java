@@ -1,6 +1,6 @@
 package com.example.boardstudy.service;
 
-import com.example.boardstudy.dto.MemberDTO;
+import com.example.boardstudy.vo.Member;
 import com.example.boardstudy.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,17 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
 
-    public void doJoin(String loginId, String loginPw, String name, String nickname, String tel, String email, String address) {
-        memberMapper.doJoin(loginId, loginPw, name, nickname, tel, email, address);
+    public void doJoin(Member member){
+
+        memberMapper.doJoin(member);
     }
 
-    public MemberDTO test(int i) {
-        return memberMapper.test(i);
+    public Member getMember(String loginId) {
+
+        return memberMapper.getMember(loginId);
+    }
+
+    public void doModify(Member member) {
+        memberMapper.doModify(member);
     }
 }

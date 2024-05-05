@@ -9,7 +9,7 @@
 
 <section class="mt-8">
 		<div class="container mx-auto">
-			<form action="/member/doJoin" method="GET" > <!-- 전송버튼을 눌렀을 때 자기자신 객체를 가지고 join_submit 메서드 실행 -->
+			<form action="/member/doJoin" method="POST" > <!-- 전송버튼을 눌렀을 때 자기자신 객체를 가지고 join_submit 메서드 실행 -->
 				<div class="table-box-type-1">
 					<table>
 						<colgroup>

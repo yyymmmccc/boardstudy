@@ -1,13 +1,14 @@
-package com.example.boardstudy.dto;
+package com.example.boardstudy.vo;
 
 import lombok.Data;
 
 @Data
 
-public class MemberDTO {
+public class Member {
     private String memberId;
     private String loginId;
     private String loginPw;
+    private String name;
     private String nickname;
     private String tel;
     private String email;
