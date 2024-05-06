@@ -12,6 +12,7 @@ public interface BoardMapper {
             SELECT *, member.nickname
                 FROM board, member
                 WHERE categoryId = #{categoryId} AND board.memberId = member.memberId
+                ORDER BY board.boardId DESC
             """)
     public List<Board> getBoards(int categoryId);
 
@@ -34,5 +35,17 @@ public interface BoardMapper {
                             @Param("title") String title, @Param("content") String content);
 
     @Delete("DELETE FROM board WHERE boardId = #{boardId}")
-    void doDelete(int boardId);
+    public void doDelete(int boardId);
+
+    @Insert("""
+            INSERT INTO board
+            SET categoryId = #{categoryId}
+                , memberId = #{memberId}
+                , title = #{title}
+                , content = #{content}
+                , regDate = NOW()
+                , updateDate = NOW()
+            """)
+    public void doWrite(@Param("memberId") int memberId, @Param("categoryId") int categoryId,
+                 @Param("title") String title, @Param("content") String content);
 }

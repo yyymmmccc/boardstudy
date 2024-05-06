@@ -29,4 +29,8 @@ public class BoardService {
     public void doDelete(int boardId) {
         boardMapper.doDelete(boardId);
     }
+
+    public void doWrite(int memberId, int categoryId, String title, String content) {
+        boardMapper.doWrite(memberId, categoryId, title, content);
+    }
 }

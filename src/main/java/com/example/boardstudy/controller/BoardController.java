@@ -16,11 +16,13 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/board/list")
-    public String list(Model model, @RequestParam(value="categoryId") int categoryId){
+    public String list(Model model,
+                       @RequestParam(value = "categoryId", defaultValue = "1") int categoryId){
 
          List<Board> boards = boardService.getBoards(categoryId);
 
          model.addAttribute("boards", boards);
+         model.addAttribute("categoryId", categoryId);
 
         return "/board/list";
     }
@@ -32,6 +34,25 @@ public class BoardController {
         model.addAttribute("board", board);
 
         return "/board/detail";
+    }
+
+    @GetMapping("/board/write")
+    public String write(Model model, @RequestParam(value="categoryId") int categoryId){
+
+        model.addAttribute("categoryId", categoryId);
+
+        return "/board/write";
+    }
+
+    @GetMapping("/board/doWrite")
+    public String doWrite(@RequestParam(value = "memberId") int memberId
+            , @RequestParam(value = "categoryId") int categoryId
+            , @RequestParam(value = "title") String title, @RequestParam(value = "content") String content){
+
+        boardService.doWrite(memberId, categoryId, title, content);
+
+        return "/board/list";
+        // 위치 해당 category 리스트로 가야함
     }
 
     @GetMapping("/board/modify")
@@ -60,7 +81,6 @@ public class BoardController {
 
         return "/home/main";
     }
-
 
 
 }

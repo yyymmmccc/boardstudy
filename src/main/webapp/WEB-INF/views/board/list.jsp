@@ -8,9 +8,6 @@
 		<div class="container mx-auto">
 			<div class="mb-2 flex justify-between">
 				<div>
-					<span>${ap.articlesCnt}개의 글</span>
-				</div>
-				<div>
 					<form method="GET">
 							<select data-value="${searchType}" name="searchType">
 								<option value="title">제목</option>
@@ -40,14 +37,18 @@
 							<td>${board.boardId}</td>
 							<td><a class="hover:underline" href="detail?boardId=${board.boardId }">${board.title}</a></td>
 							<td>${board.nickname}</td>
-							<td>${board.regDate.substring(12, 16)}</td>
+							<td>${board.regDate}</td>
 							<td>${board.hit }</td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<c:if test="${!empty sessionScope}">
+                <div class="mt-2 flex justify-end">
+                    <a href="/board/write?categoryId=${categoryId}" class="btn btn-outline btn-success">글 작성</a>
+                </div>
+                </c:if>
 			</div>
         </div>
 	</section>
-	
 <%@ include file="../common/footer.jsp" %>
