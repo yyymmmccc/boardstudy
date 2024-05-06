@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor // final이 붙은놈 빈 객체를 컨테이너가 관리
+@RequiredArgsConstructor
 
 public class MemberService {
 
@@ -17,9 +17,9 @@ public class MemberService {
         memberMapper.doJoin(member);
     }
 
-    public Member getMember(String loginId) {
+    public Member getMemberByLoginId(String loginId) {
 
-        return memberMapper.getMember(loginId);
+        return memberMapper.getMemberByLoginId(loginId);
     }
 
     public void doModify(Member member) {

@@ -32,8 +32,8 @@
 		<div class="flex-grow"></div>
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">홈</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1">공지사항</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2">자유게시판</a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/board/list?categoryId=1">공지사항</a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/board/list?categoryId=2">자유게시판</a></li>
             <c:if test="${empty sessionScope.member}">
 			    <!-- rq는 요청(req)에 저장되어 있음. 요청에 저장된것들은 바로 꺼내서 사용 가능 (키로 꺼내는거임-->
 			    <li class="hover:underline"><a class="h-full px-3 flex items-center" href="/member/login">로그인</a></li>

@@ -11,7 +11,7 @@ public interface MemberMapper {
     public void doJoin(Member member);
 
     @Select("SELECT * FROM member WHERE loginId = #{loginId}")
-    public Member getMember(String loginId);
+    public Member getMemberByLoginId(String loginId);
 
     @Update("""
             UPDATE member 

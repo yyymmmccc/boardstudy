@@ -4,7 +4,6 @@ import com.example.boardstudy.vo.Member;
 import com.example.boardstudy.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequiredArgsConstructor // final이 붙은놈 빈 객체를 컨테이너가 관리
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
@@ -41,7 +40,7 @@ public class MemberController {
 
     @PostMapping("/member/doLogin")
     public String doLogin(HttpSession session, @RequestParam(value="loginId") String loginId, @RequestParam(value="loginPw") String loginPw){
-        Member member = memberService.getMember(loginId);
+        Member member = memberService.getMemberByLoginId(loginId);
 
         if(member == null){
             return "아이디를 확인해주세요.";
@@ -57,8 +56,9 @@ public class MemberController {
 
     @GetMapping("/member/myPage")
     public String myPage(HttpSession session, Model model){
-        
+        // 처음 로그인 했을 때의 member 세션정보를 받아와서 해당 loginId로 DB에서 새롭게 받아옴 (회원정보수정을 했을 수 있으니)
         Member member = (Member) session.getAttribute("member");
+        member = memberService.getMemberByLoginId(member.getLoginId());
         model.addAttribute("member", member);
 
         return "/member/myPage";
@@ -67,7 +67,6 @@ public class MemberController {
     @GetMapping("/member/doModify")
     public String doModify(Member member){
 
-        System.out.println(member.toString());
         memberService.doModify(member);
 
         return "/home/main";
