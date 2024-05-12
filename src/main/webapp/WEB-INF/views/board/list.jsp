@@ -50,5 +50,23 @@
                 </c:if>
 			</div>
         </div>
+        <div class="mt-4 flex justify-center">
+            <div class="join">
+                <!-- 처음 페이지가 아닐 때 이전버튼 화면에 출력 -->
+                <c:if test="${paging.startPage > 1 }">
+                    <a class="join-item btn" href="/board/list?categoryId=${categoryId}&page=${paging.startPage-1}">이전</a>
+                </c:if>
+
+                <!-- 반복문으로 페이지 번호 출력 -->
+                <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+                    <a class="join-item btn ${paging.page == i ? 'btn-active' : ' '}" href="/board/list?categoryId=${categoryId }&page=${i }">${i }</a>
+                </c:forEach>
+
+                <!-- 마지막 페이지가 아닐 때 다음버튼 화면에 출력-->
+                <c:if test="${paging.totalPage != paging.endPage}">
+                    <a class="join-item btn" href="/board/list?categoryId=${categoryId }&page=${paging.endPage+1}">다음</a>
+                </c:if>
+            </div>
+        </div>
 	</section>
 <%@ include file="../common/footer.jsp" %>

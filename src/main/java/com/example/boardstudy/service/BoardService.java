@@ -12,9 +12,9 @@ import java.util.List;
 public class BoardService {
     private final BoardMapper boardMapper;
 
-    public List<Board> getBoards(int categoryId) {
+    public List<Board> getBoards(int categoryId, int startPageIndex, int currentPagePostsLen) {
 
-        return boardMapper.getBoards(categoryId);
+        return boardMapper.getBoards(categoryId, startPageIndex, currentPagePostsLen);
     }
 
     public Board getBoard(int boardId) {
@@ -32,5 +32,9 @@ public class BoardService {
 
     public void doWrite(int memberId, int categoryId, String title, String content) {
         boardMapper.doWrite(memberId, categoryId, title, content);
+    }
+
+    public int getBoardCnt(int categoryId) {
+        return boardMapper.getBoardCnt(categoryId);
     }
 }

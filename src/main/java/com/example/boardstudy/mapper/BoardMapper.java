@@ -11,10 +11,11 @@ public interface BoardMapper {
     @Select("""
             SELECT *, member.nickname
                 FROM board, member
-                WHERE categoryId = #{categoryId} AND board.memberId = member.memberId
-                ORDER BY board.boardId DESC
+                    WHERE categoryId = #{categoryId} AND board.memberId = member.memberId
+                        ORDER BY board.boardId DESC
+                            LIMIT #{startPageIndex}, #{currentPagePostsLen}
             """)
-    public List<Board> getBoards(int categoryId);
+    public List<Board> getBoards(int categoryId, int startPageIndex, int currentPagePostsLen);
 
     @Select("""
             SELECT *, member.nickname
@@ -39,7 +40,7 @@ public interface BoardMapper {
 
     @Insert("""
             INSERT INTO board
-            SET categoryId = #{categoryId}
+                SET categoryId = #{categoryId}
                 , memberId = #{memberId}
                 , title = #{title}
                 , content = #{content}
@@ -48,4 +49,11 @@ public interface BoardMapper {
             """)
     public void doWrite(@Param("memberId") int memberId, @Param("categoryId") int categoryId,
                  @Param("title") String title, @Param("content") String content);
+
+    @Select("""
+            SELECT COUNT(boardId) 
+                FROM board 
+                WHERE categoryId = #{categoryId} 
+                """)
+    public int getBoardCnt(int categoryId);
 }

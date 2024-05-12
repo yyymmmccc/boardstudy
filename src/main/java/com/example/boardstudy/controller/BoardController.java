@@ -2,6 +2,7 @@ package com.example.boardstudy.controller;
 
 import com.example.boardstudy.service.BoardService;
 import com.example.boardstudy.vo.Board;
+import com.example.boardstudy.vo.Paging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +15,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private Paging paging;
 
     @GetMapping("/board/list")
-    public String list(Model model,
-                       @RequestParam(value = "categoryId", defaultValue = "1") int categoryId){
+    public String list(Model model, @RequestParam(value = "categoryId", defaultValue = "1") int categoryId
+                        , @RequestParam(value = "page", defaultValue = "1") int page){
 
-         List<Board> boards = boardService.getBoards(categoryId);
+        int totalPageCnt = boardService.getBoardCnt(categoryId);
+        paging = new Paging(page, totalPageCnt);
 
-         model.addAttribute("boards", boards);
-         model.addAttribute("categoryId", categoryId);
+        List<Board> boards = boardService.getBoards(categoryId, paging.getStartPageIndex(), paging.getCurrentPagePostsLen());
+        // 카테고리 id, 몇번페이지부터, 글 몇개를 보여줄건지
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("boards", boards);
+        model.addAttribute("categoryId", categoryId);
 
         return "/board/list";
     }
@@ -51,7 +58,7 @@ public class BoardController {
 
         boardService.doWrite(memberId, categoryId, title, content);
 
-        return "/board/list";
+        return "/home/main";
         // 위치 해당 category 리스트로 가야함
     }
 
