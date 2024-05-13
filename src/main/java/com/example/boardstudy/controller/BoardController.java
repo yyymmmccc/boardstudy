@@ -1,9 +1,11 @@
 package com.example.boardstudy.controller;
 
+import com.example.boardstudy.mapper.BoardMapper;
 import com.example.boardstudy.service.BoardService;
 import com.example.boardstudy.vo.Board;
 import com.example.boardstudy.vo.Paging;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,24 +14,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
+
 public class BoardController {
-    private final BoardService boardService;
+    private BoardService boardService;
     private Paging paging;
+
+    @Autowired
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping("/board/list")
     public String list(Model model, @RequestParam(value = "categoryId", defaultValue = "1") int categoryId
-                        , @RequestParam(value = "page", defaultValue = "1") int page){
+                        , @RequestParam(value = "page", defaultValue = "1") int page
+                        , @RequestParam(value = "searchType", defaultValue = "") String searchType
+                        , @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyWord){
 
-        int totalPageCnt = boardService.getBoardCnt(categoryId);
+        int totalPageCnt = boardService.getBoardCnt(categoryId, searchType, searchKeyWord);
+
         paging = new Paging(page, totalPageCnt);
 
-        List<Board> boards = boardService.getBoards(categoryId, paging.getStartPageIndex(), paging.getCurrentPagePostsLen());
+        List<Board> boards = boardService.getBoards(categoryId, searchType, searchKeyWord,
+                                                paging.getStartPageIndex(), paging.getCurrentPagePostsLen());
         // 카테고리 id, 몇번페이지부터, 글 몇개를 보여줄건지
 
         model.addAttribute("paging", paging);
         model.addAttribute("boards", boards);
         model.addAttribute("categoryId", categoryId);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchKeyword", searchKeyWord);
 
         return "/board/list";
     }
@@ -37,7 +50,9 @@ public class BoardController {
     @GetMapping("/board/detail")
     public String detail(Model model, @RequestParam(value="boardId") int boardId){
 
+        boardService.incrementHit(boardId);
         Board board = boardService.getBoard(boardId);
+
         model.addAttribute("board", board);
 
         return "/board/detail";
@@ -66,6 +81,7 @@ public class BoardController {
     public String modify(Model model, @RequestParam(value="boardId") int boardId){
 
         Board board = boardService.getBoard(boardId);
+
         model.addAttribute("board", board);
 
         return "/board/modify";

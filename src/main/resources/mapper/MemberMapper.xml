@@ -8,15 +8,15 @@
 
     <insert id="doJoin" parameterType="com.example.boardstudy.vo.Member">
         INSERT INTO member
-        SET loginId = #{loginId}
-        , loginPw = #{loginPw}
-        , name = #{name}
-        , nickname = #{nickname}
-        , tel = #{tel}
-        , email = #{email}
-        , address = #{address}
-        , regDate = NOW()
-        , updateDate = NOW()
+            SET loginId = #{loginId}
+            , loginPw = #{loginPw}
+            , name = #{name}
+            , nickname = #{nickname}
+            , tel = #{tel}
+            , email = #{email}
+            , address = #{address}
+            , regDate = NOW()
+            , updateDate = NOW()
     </insert>
 
 

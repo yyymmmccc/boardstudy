@@ -24,7 +24,6 @@ public class MemberController {
     }
 
     @PostMapping("/member/doJoin")
-    @ResponseBody
     public String doJoin(Member member){
 
         memberService.doJoin(member);

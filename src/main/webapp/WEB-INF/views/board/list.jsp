@@ -8,14 +8,14 @@
 		<div class="container mx-auto">
 			<div class="mb-2 flex justify-between">
 				<div>
-					<form method="GET">
+					<form action="/board/list" method="GET">
 							<select data-value="${searchType}" name="searchType">
 								<option value="title">제목</option>
-								<option value="body">내용</option>
-								<option value="titleBody">제목 + 내용</option>
+								<option value="content">내용</option>
+								<option value="titleContent">제목 + 내용</option>
 							</select>
 						<input class="mt-2" type="text" name="searchKeyword" value="${searchKeyword }" placeholder="검색어를 입력하세요."/>
-						<input type="hidden" name="boardId" value="${board.boardId }"/>
+						<input type="hidden" name="categoryId" value="${categoryId }"/>
 						<button>검색</button>
 					</form>
 				</div>
