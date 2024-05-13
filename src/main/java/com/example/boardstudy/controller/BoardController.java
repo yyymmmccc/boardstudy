@@ -1,10 +1,9 @@
 package com.example.boardstudy.controller;
-
-import com.example.boardstudy.mapper.BoardMapper;
 import com.example.boardstudy.service.BoardService;
 import com.example.boardstudy.vo.Board;
 import com.example.boardstudy.vo.Paging;
-import lombok.RequiredArgsConstructor;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +47,10 @@ public class BoardController {
     }
 
     @GetMapping("/board/detail")
-    public String detail(Model model, @RequestParam(value="boardId") int boardId){
+    public String detail(Model model, @RequestParam(value="boardId") int boardId
+                        , HttpServletRequest request, HttpServletResponse response){
 
-        boardService.incrementHit(boardId);
+        boardService.incrementHit(boardId, request, response);
         Board board = boardService.getBoard(boardId);
 
         model.addAttribute("board", board);
