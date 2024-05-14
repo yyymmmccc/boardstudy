@@ -28,9 +28,16 @@
     </select>
 
     <select id="getBoard">
-        SELECT *, member.nickname
-            FROM board, member
-                WHERE boardId = #{boardId} AND board.memberId = member.memberId
+        SELECT b.*, m.nickname
+        , SUM(IF(r.point &gt; 0, r.point, 0)) AS goodReaction
+        , ABS(SUM(IF(r.point &lt; 0, r.point, 0))) AS badReaction
+            FROM board AS b
+                INNER JOIN member AS m
+                ON b.memberId = m.memberId
+                    LEFT JOIN reaction AS r
+                    ON b.boardId = r.boardId
+                        WHERE b.boardId = #{boardId}
+                        GROUP BY b.boardId
     </select>
 
     <select id="getBoardCnt">
@@ -52,7 +59,7 @@
                 </if>
     </select>
 
-    <insert id="doWrite" parameterType="com.example.boardstudy.vo.Board">
+    <insert id="doWrite">
         INSERT INTO board
             SET categoryId = #{categoryId}
             , memberId = #{memberId}

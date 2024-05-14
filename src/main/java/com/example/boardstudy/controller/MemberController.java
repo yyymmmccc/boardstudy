@@ -41,13 +41,6 @@ public class MemberController {
     public String doLogin(HttpSession session, @RequestParam(value="loginId") String loginId, @RequestParam(value="loginPw") String loginPw){
         Member member = memberService.getMemberByLoginId(loginId);
 
-        if(member == null){
-            return "아이디를 확인해주세요.";
-        }
-        if(!member.getLoginPw().equals(loginPw)){
-            return "비밀번호가 일치하지않습니다.";
-        }
-
         session.setAttribute("member", member);
 
         return "/home/main";
@@ -57,7 +50,9 @@ public class MemberController {
     public String myPage(HttpSession session, Model model){
         // 처음 로그인 했을 때의 member 세션정보를 받아와서 해당 loginId로 DB에서 새롭게 받아옴 (회원정보수정을 했을 수 있으니)
         Member member = (Member) session.getAttribute("member");
+
         member = memberService.getMemberByLoginId(member.getLoginId());
+
         model.addAttribute("member", member);
 
         return "/member/myPage";

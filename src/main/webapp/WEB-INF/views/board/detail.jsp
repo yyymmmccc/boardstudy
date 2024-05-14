@@ -2,7 +2,33 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ include file="../common/header.jsp" %>	
+<%@ include file="../common/header.jsp" %>
+
+<script>
+    function getReaction(){
+
+        $.get('/reaction/getReaction', {
+
+            boardId: ${board.boardId}
+
+        }, function(data){
+
+            if(data.point > 0){
+                let goodBtn = $('#goodBtn');
+                goodBtn.removeClass('btn-outline'); // btn 이미지 아웃라인삭제
+                goodBtn.attr('href', '/reaction/deleteReaction?boardId=${board.boardId }')
+            }
+
+            else if(data.point < 0){
+                let badBtn = $('#badBtn');
+                badBtn.removeClass('btn-outline');
+                badBtn.prop('href', '/reaction/deleteReaction?boardId=${board.boardId }')
+            }
+        }, 'json');
+    }
+
+    getReaction();
+</script>
 
 <section class="mt-8">
 	<div class="container mx-auto pb-10 border-bottom-line">
@@ -40,12 +66,12 @@
 						<th>추천</th>
 						<td>
 							<div>
-								<a id="goodBtn" class="btn btn-outline btn-success btn-xs" href="../reaction/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=1">좋아요👍</a>
-								<span class="ml-2">${article.goodReactionPoint }</span>
+								<a id="goodBtn" class="btn btn-outline btn-success btn-xs" href="/reaction/insertReaction?boardId=${board.boardId}&point=1">좋아요👍</a>
+								<span class="ml-2">${board.goodReaction }</span>
 							</div>
 							<div class="mt-2">
-								<a id="badBtn" class="btn btn-outline btn-error btn-xs" href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=-1">싫어요👎</a>
-								<span class="ml-2">${article.badReactionPoint }</span>
+								<a id="badBtn" class="btn btn-outline btn-error btn-xs" href="/reaction/insertReaction?boardId=${board.boardId}&point=-1">싫어요👎</a>
+								<span class="ml-2">${board.badReaction }</span>
 							</div>
 						</td>
 					</tr>

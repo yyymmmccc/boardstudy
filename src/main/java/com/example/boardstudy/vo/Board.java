@@ -13,4 +13,6 @@ public class Board {
     private String categoryId;
     private String memberId;
     private String nickname;
+    private int goodReaction;
+    private int badReaction;
 }
