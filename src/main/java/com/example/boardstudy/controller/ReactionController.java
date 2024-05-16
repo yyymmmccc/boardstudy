@@ -1,6 +1,7 @@
 package com.example.boardstudy.controller;
 
 import com.example.boardstudy.service.ReactionService;
+import com.example.boardstudy.util.Util;
 import com.example.boardstudy.vo.Member;
 import com.example.boardstudy.vo.Reaction;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ public class ReactionController {
     }
 
     @GetMapping("/reaction/insertReaction")
+    @ResponseBody
     public String insertReaction(HttpSession session, @RequestParam(value = "boardId") int boardId
             , @RequestParam(value = "point") int point){
 
@@ -27,7 +29,7 @@ public class ReactionController {
 
         reactionService.insertReaction(boardId, point, member.getMemberId());
 
-        return "/home/main";
+        return Util.replace(String.format("/board/detail?boardId=%d", boardId));
     }
 
     @GetMapping("/reaction/getReaction")
@@ -45,12 +47,13 @@ public class ReactionController {
     }
 
     @GetMapping("/reaction/deleteReaction")
+    @ResponseBody
     public String deleteReaction(HttpSession session, @RequestParam(value = "boardId") int boardId){
 
         Member member = (Member) session.getAttribute("member");
 
         reactionService.deleteReaction(boardId, member.getMemberId());
 
-        return "/home/main";
+        return Util.replace(String.format("/board/detail?boardId=%d", boardId));
     }
 }

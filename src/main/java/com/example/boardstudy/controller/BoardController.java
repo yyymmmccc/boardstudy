@@ -1,6 +1,8 @@
 package com.example.boardstudy.controller;
 import com.example.boardstudy.service.BoardService;
+import com.example.boardstudy.service.CommentService;
 import com.example.boardstudy.vo.Board;
+import com.example.boardstudy.vo.Comment;
 import com.example.boardstudy.vo.Paging;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,11 +18,13 @@ import java.util.List;
 
 public class BoardController {
     private BoardService boardService;
+    private CommentService commentService;
     private Paging paging;
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(CommentService commentService, BoardService boardService) {
         this.boardService = boardService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/board/list")
@@ -52,10 +56,10 @@ public class BoardController {
 
         boardService.incrementHit(boardId, request, response);
         Board board = boardService.getBoard(boardId);
-
-        System.out.println(board.toString());
+        List<Comment> comments = commentService.getComments(boardId);
 
         model.addAttribute("board", board);
+        model.addAttribute("comments", comments);
 
         return "/board/detail";
     }

@@ -11,7 +11,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginIntercepter())
+        registry.addInterceptor(new LoginIntercepter()) // 로그인 안했을 때 기능 불가
                 .addPathPatterns("/board/write")
                 .addPathPatterns("/board/doWrite")
                 .addPathPatterns("/board/modify")
@@ -21,7 +21,10 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/member/doModify")
                 .addPathPatterns("/member/logout")
                 .addPathPatterns("/reaction/insertReaction")
-                .addPathPatterns("/reaction/deleteReaction");
+                .addPathPatterns("/reaction/deleteReaction")
+                .addPathPatterns("/comment/insertComment")
+                .addPathPatterns("/comment/modifyComment")
+                .addPathPatterns("/comment/commentDelete");
 
         registry.addInterceptor(new LogoutIntercepter())
                 .addPathPatterns("/member/login")

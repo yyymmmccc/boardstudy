@@ -1,5 +1,6 @@
 package com.example.boardstudy.controller;
 
+import com.example.boardstudy.util.Util;
 import com.example.boardstudy.vo.Member;
 import com.example.boardstudy.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -38,12 +39,21 @@ public class MemberController {
     }
 
     @PostMapping("/member/doLogin")
+    @ResponseBody
     public String doLogin(HttpSession session, @RequestParam(value="loginId") String loginId, @RequestParam(value="loginPw") String loginPw){
         Member member = memberService.getMemberByLoginId(loginId);
 
+        if(member == null){
+            return Util.historyBackMsg("회원정보가 일치하지않습니다.");
+        }
+
+        if(!member.getLoginPw().equals(loginPw)) {
+            return Util.historyBackMsg("회원정보가 일치하지않습니다.");
+        }
+
         session.setAttribute("member", member);
 
-        return "/home/main";
+        return Util.historyBack();
     }
 
     @GetMapping("/member/myPage")
