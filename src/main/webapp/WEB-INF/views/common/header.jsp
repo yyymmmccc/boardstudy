@@ -8,45 +8,45 @@
 <meta charset="UTF-8">
 
 <!-- 테일윈드 불러오기 -->
-<!-- 노말라이즈, 라이브러리 -->
 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
+<!-- 노말라이즈, 라이브러리 -->
 
 <!-- 제이쿼리 불러오기 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <!-- 폰트어썸 불러오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-<link rel="stylesheet" href="/resource/common.css"/>
+<link rel="stylesheet" href="/common/common.css"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!--  -->
-<script src="/resource/common.js" defer='defer'></script>
- 
-<title>${pageTitle }</title>
+<title>쇼핑몰</title>
 </head>
 <body>
-	<div class="h-20 flex container mx-auto text-4xl">
-		<a class="px-3 flex items-center" href="/">
-			<span>로고</span>
-		</a>
-		<div class="flex-grow"></div>
-		<ul class="flex">
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">홈</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/board/list?categoryId=1">공지사항</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/board/list?categoryId=2">자유게시판</a></li>
-            <c:if test="${empty sessionScope.member}">
-			    <!-- rq는 요청(req)에 저장되어 있음. 요청에 저장된것들은 바로 꺼내서 사용 가능 (키로 꺼내는거임-->
-			    <li class="hover:underline"><a class="h-full px-3 flex items-center" href="/member/login">로그인</a></li>
-			    <li class="hover:underline"><a class="h-full px-3 flex items-center" href="/member/join">회원가입</a></li>
-            </c:if>
-			<c:if test="${!empty sessionScope.member}">
-			    <li class="hover:underline"><a class="h-full px-3 flex items-center" href="/member/myPage">마이페이지</a></li>
-			    <li class="hover:underline"><a class="h-full px-3 flex items-center" href="/member/logout">로그아웃</a></li>
-			</c:if>
-		</ul>
-	</div>
-	<section class="my-3 text-2xl">
-		<div class="container mx-auto px-3">
-			<h1>${pageTitle}</h1>
-		</div>
-	</section>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/">로고</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="/product/list?categoryId=13">Shop</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/board/list?categoryId=1">공지사항</a></li>
+                            <li><a class="dropdown-item" href="/board/list?categoryId=2">자유게시판</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <c:if test="${empty sessionScope.member}">
+                        <class="btn btn-outline-dark"><a class="nav-link" href="/member/login">로그인</a>
+                        <class="btn btn-outline-dark"><a class="nav-link" href="/member/join">회원가입</a>
+                    </c:if>
+                    <c:if test="${!empty sessionScope.member}">
+                        <class="btn btn-outline-dark"><a class="nav-link" href="/member/myPage">마이페이지</a>
+                        <class="btn btn-outline-dark"><a class="nav-link" href="/member/logout">로그아웃</a>
+                        <class="btn btn-outline-dark"><a class="nav-link" href="/member/logout">장바구니<span class="badge bg-dark text-white ms-1 rounded-pill">0</span></a>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </nav>

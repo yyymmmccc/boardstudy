@@ -5,14 +5,15 @@ import lombok.Data;
 @Data
 public class Paging {
     private int page; // 현재 페이지 번호
-    private final int currentPagePostsLen = 10; // 현재 페이지에서 보여줄 글의 수
+    private int currentPagePostsLen; // 현재 페이지에서 보여줄 글의 수
     private int viewPageLen = 10;                  // 보여줄 페이지의 갯수
     private int startPageIndex;                    // 보여줄 글의 시작범위 설정 (1page이면 0번글부터, 2page면 10번글부터)
     private int totalPage;                         // 총 페이지의 갯수
     private int endPage;                           // 보여줄 페이지의 끝번호
     private int startPage;                         // 보여줄 페이지의 시작번호
 
-    public Paging(int page, int totalPageCnt){
+    public Paging(int page, int totalPageCnt, int currentPagePostsLen){
+        this.currentPagePostsLen = currentPagePostsLen;
         this.page = page;
         this.totalPage = totalPageCnt;
         calc();

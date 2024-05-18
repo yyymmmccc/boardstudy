@@ -35,7 +35,7 @@ public class BoardController {
 
         int totalPageCnt = boardService.getBoardCnt(categoryId, searchType, searchKeyWord);
 
-        paging = new Paging(page, totalPageCnt);
+        paging = new Paging(page, totalPageCnt, 10);
 
         List<Board> boards = boardService.getBoards(categoryId, searchType, searchKeyWord,
                                                 paging.getStartPageIndex(), paging.getCurrentPagePostsLen());
