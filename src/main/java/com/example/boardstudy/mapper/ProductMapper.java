@@ -15,4 +15,8 @@ public interface ProductMapper {
     int getProductCnt(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyWord);
 
     List<Product> productLists(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword, @Param("startPageIndex") int startPageIndex, @Param("currentPagePostsLen") int currentPagePostsLen);
+
+    Product getProduct(@Param("productId") int productId);
+
+    void deleteProduct(@Param("productId") int productId);
 }

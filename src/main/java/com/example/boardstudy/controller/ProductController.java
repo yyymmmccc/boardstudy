@@ -26,7 +26,7 @@ public class ProductController {
     @GetMapping("/product/list")
     public String productList(Model model, @RequestParam(value = "categoryId") int categoryId,
                               @RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyWord){
+                              @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyWord) {
 
         int totalPageCnt = productService.getProductCnt(categoryId, searchKeyWord);
         System.out.println(totalPageCnt);
@@ -40,6 +40,42 @@ public class ProductController {
         model.addAttribute("paging", paging);
         model.addAttribute("searchKeyword", searchKeyWord);
         return "/product/list";
+    }
+
+    @GetMapping("/product/detail")
+    public String productDetail(Model model, @RequestParam(value = "productId") int productId) {
+
+        Product product = productService.getProduct(productId);
+
+        if (product == null) {
+            return Util.historyBackMsg("해당 상품은 존재하지않습니다.");
+        }
+
+        model.addAttribute("product", product);
+
+        return "/product/detail";
+    }
+
+    @GetMapping("/product/modify")
+    public String productModify(Model model, @RequestParam(value = "productId") int productId){
+
+        Product product = productService.getProduct(productId);
+
+        model.addAttribute("product", product);
+
+        return "/product/modify";
+    }
+
+    @GetMapping("/product/delete")
+    @ResponseBody
+    public String productDelete(@RequestParam(value = "productId") int productId){
+
+        Product product = productService.getProduct(productId);
+
+
+        productService.deleteProduct(productId);
+
+        return Util.replace(String.format("/product/list?categoryId=%d", product.getCategoryId()));
     }
 
 }

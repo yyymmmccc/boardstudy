@@ -39,7 +39,6 @@ public class MemberController {
     }
 
     @PostMapping("/member/doLogin")
-    @ResponseBody
     public String doLogin(HttpSession session, @RequestParam(value="loginId") String loginId, @RequestParam(value="loginPw") String loginPw){
         Member member = memberService.getMemberByLoginId(loginId);
 
@@ -53,7 +52,7 @@ public class MemberController {
 
         session.setAttribute("member", member);
 
-        return Util.historyBack();
+        return "/home/main";
     }
 
     @GetMapping("/member/myPage")

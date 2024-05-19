@@ -4,6 +4,14 @@
 
 <%@ include file="../common/header.jsp" %>
 
+<div class="mb-2 flex row-cols-s-10 justify-content-center">
+    <a href="/product/list?categoryId=3">OUTER</a>
+    <a href="/product/list?categoryId=4">TOP</a>
+    <a href="/product/list?categoryId=14">shorTop</a>
+    <a href="/product/list?categoryId=5">BOTTOM</a>
+    <a href="/product/list?categoryId=6">ACC</a>
+</div>
+
 <section class="py-5">
     <div class="mb-2 flex justify-between">
         <div>
@@ -19,7 +27,7 @@
             <c:forEach var="product" items="${products}">
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <a href="/product/detail?productId=${product.productId}"><img class="card-img-top" src="${product.image}" alt="왜 안나옴" /></a>
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
@@ -28,10 +36,6 @@
                                 <!-- Product price-->
                                 가격 : ${product.price}
                             </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                         </div>
                     </div>
                 </div>

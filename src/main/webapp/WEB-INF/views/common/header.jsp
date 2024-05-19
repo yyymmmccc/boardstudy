@@ -22,19 +22,15 @@
 <title>쇼핑몰</title>
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="/">로고</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="/product/list?categoryId=13">Shop</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/board/list?categoryId=1">공지사항</a></li>
-                            <li><a class="dropdown-item" href="/board/list?categoryId=2">자유게시판</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/product/list?categoryId=14">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/board/list?categoryId=1">Notice</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/board/list?categoryId=2">Free</a></li>
                 </ul>
                 <div class="d-flex">
                     <c:if test="${empty sessionScope.member}">

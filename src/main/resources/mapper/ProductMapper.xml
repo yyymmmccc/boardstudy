@@ -26,4 +26,16 @@
                 </if>
     </select>
 
+    <select id="getProduct">
+        SELECT *
+            FROM product
+            WHERE productId = #{productId}
+    </select>
+
+    <delete id="deleteProduct">
+        DELETE
+            FROM product
+            WHERE productId = #{productId}
+    </delete>
+
 </mapper>

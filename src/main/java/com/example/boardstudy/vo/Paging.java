@@ -24,7 +24,7 @@ public class Paging {
         startPageIndex = (page - 1) * currentPagePostsLen;
         // 게시글 시작번호를 알려줄 변수 (1페이지면 0번 글부터, 2페이지면 10번 글부터)
 
-        totalPage = (int) Math.ceil((double) totalPage / 10);
+        totalPage = (int) Math.ceil((double) totalPage / currentPagePostsLen);
         // 예를들어 totalPage 값이 243이라면 24페이지가 아닌 / 25페이지로 보이게 보정
 
         endPage = (int) (Math.ceil((double) page / viewPageLen) * viewPageLen);

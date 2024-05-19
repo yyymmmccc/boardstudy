@@ -24,4 +24,13 @@ public class ProductService {
 
         return productMapper.getProductCnt(categoryId, searchKeyWord);
     }
+
+    public Product getProduct(int productId) {
+
+        return productMapper.getProduct(productId);
+    }
+
+    public void deleteProduct(int productId) {
+        productMapper.deleteProduct(productId);
+    }
 }
